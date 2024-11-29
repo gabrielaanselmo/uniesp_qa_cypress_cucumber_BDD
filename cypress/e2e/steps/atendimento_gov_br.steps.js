@@ -17,6 +17,14 @@ Given('o usuário está na página inicial do gov.br', () => {
         cy.log('Overlay não está visível ou não existe.');
       }
     });
+
+  // Verifica se o botão de aceitar cookies está visível e clica nele
+  cy.get('body > div.dsgov > div > div > div > div > div.br-modal-footer.actions > button.br-button.secondary.small.btn-accept', { timeout: 10000 })
+    .should('be.visible')
+    .click({ force: true });
+
+  // Espera após clicar no botão de cookies
+  cy.wait(2000); // Aumente o tempo se necessário
 });
 
 // Passo 2: Esperar e clicar no botão "Atendimento GOV.BR"
@@ -45,10 +53,11 @@ When('ele clicar no botão "Falar com atendente"', () => {
     .should('be.visible')
     .should('not.be.disabled')
     .click({ force: true, multiple: true });
-});
 
-// Passo 6: Verificar se o formulário de atendimento está visível
-Then('ele deve ver o formulário de atendimento', () => {
-  cy.contains('h1', 'Assistente gov.br', { timeout: 10000 })
+  // Aguarda o tempo necessário para o formulário carregar
+  cy.wait(3000); // Aumente o tempo conforme necessário
+
+  // Verifica se o campo dentro do formulário está visível
+  cy.contains('h1', 'Assistente gov.br', { timeout: 15000 })
     .should('be.visible');
 });
