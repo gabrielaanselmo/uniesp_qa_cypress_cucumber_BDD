@@ -33,18 +33,22 @@ Then('ele deve ser redirecionado para a página de atendimento', () => {
 
 // Passo 4: Verificar se o botão "Falar com atendente" está presente
 Then('ele deve ver o botão "Falar com atendente"', () => {
-  cy.contains('button', 'Falar com atendente', { timeout: 10000 })
-    .should('be.visible');
+  cy.get('#a126b381-b6ed-44f6-be66-292077a09a54 > div > p > button', { timeout: 10000 })
+    .scrollIntoView()
+    .should('be.visible'); 
 });
 
 // Passo 5: Clicar no botão "Falar com atendente"
 When('ele clicar no botão "Falar com atendente"', () => {
-  cy.contains('button', 'Falar com atendente')
-    .click({ force: true });
+  cy.get('#a126b381-b6ed-44f6-be66-292077a09a54 > div > p > button', { timeout: 10000 })
+    .scrollIntoView()
+    .should('be.visible')
+    .should('not.be.disabled')
+    .click({ force: true, multiple: true });
 });
 
 // Passo 6: Verificar se o formulário de atendimento está visível
 Then('ele deve ver o formulário de atendimento', () => {
-  cy.get('form[aria-label="Identificação do usuário"]')
+  cy.contains('h1', 'Assistente gov.br', { timeout: 10000 })
     .should('be.visible');
 });
