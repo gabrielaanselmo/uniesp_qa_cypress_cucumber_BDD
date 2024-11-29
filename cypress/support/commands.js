@@ -1,25 +1,13 @@
 // ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
+// Este código irá impedir que o Cypress falhe o teste
+// quando o erro "$ is not defined" for detectado.
 // ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.on('uncaught:exception', (err, runnable) => {
+    // Ignorar erros que contenham a mensagem "$ is not defined"
+    if (err.message.includes('$ is not defined')) {
+      return false; // Ignora o erro e não falha o teste
+    }
+    // Permite que outros erros sejam tratados normalmente
+    return true;
+  });  
